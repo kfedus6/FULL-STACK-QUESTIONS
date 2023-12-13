@@ -9,4 +9,29 @@ const User = sequelize.define('user', {
     admin: { type: DataTypes.BOOLEAN, defaultValue: false }
 })
 
-module.exports = { User }
+const Type = sequelize.define('type', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    title: { type: DataTypes.STRING, unique: true },
+})
+
+const Question = sequelize.define('question', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    question: { type: DataTypes.STRING, unique: true },
+    answer: { type: DataTypes.STRING, unique: true }
+})
+
+const Token = sequelize.define('token', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    refreshToken: { type: DataTypes.STRING, require: true }
+})
+
+User.hasMany(Type)
+Type.belongsTo(User)
+
+User.hasMany(Token)
+Token.belongsTo(User)
+
+Type.hasMany(Question)
+Question.belongsTo(Type)
+
+module.exports = { User, Type, Question, Token }
