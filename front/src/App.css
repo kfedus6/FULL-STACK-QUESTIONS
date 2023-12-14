@@ -1,0 +1,76 @@
+.layout {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 1px 4px hsl(0 4% 15% / 10%);
+    min-height: 70px;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+}
+
+.header-logo a {
+    font-size: 22px;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+    cursor: pointer
+}
+
+.header-authorization nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-authorization nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+}
+
+.header-account__logout {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.header-account a {
+    font-size: 22px;
+    cursor: pointer;
+    color:blue;
+    opacity: 1;
+    transition: 0.3s;
+}
+
+.header-account a:hover {
+    opacity: 0.7;
+}
+
+
+footer {
+    margin-top: auto;
+    z-index: 100;
+}
+
+footer div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    cursor: default;
+    font-weight: 600;
+}

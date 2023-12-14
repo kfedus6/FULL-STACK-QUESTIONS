@@ -7,7 +7,7 @@ export const fetchRegistration = () => async (dispatch: AppDispatch) => {
     try {
 
     } catch (error: any) {
-        dispatch(userSlice.actions.registration({ user: [] }))
+        dispatch(userSlice.actions.registration({ user: [], isAuth: false }))
         toast.error(error.response.data.message)
     }
 }
@@ -16,7 +16,7 @@ export const fetchLogin = () => async (dispatch: AppDispatch) => {
     try {
 
     } catch (error: any) {
-        dispatch(userSlice.actions.registration({ user: [] }))
+        dispatch(userSlice.actions.registration({ user: [], isAuth: false }))
         toast.error(error.response.data.message)
     }
 }
@@ -25,7 +25,7 @@ export const fetchLogout = () => async (dispatch: AppDispatch) => {
     try {
 
     } catch (error: any) {
-        dispatch(userSlice.actions.registration({ user: [] }))
+        dispatch(userSlice.actions.registration({ user: [], isAuth: false }))
         toast.error(error.response.data.message)
     }
 }
