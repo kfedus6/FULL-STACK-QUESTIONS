@@ -6,15 +6,19 @@ import ErrorPages from '../pages/ErrorPages'
 import Layout from './Layout'
 import Login from '../pages/Login'
 import Registration from '../pages/Registration'
+import { useAppSelector } from '../hooks/redux'
 
 const Router: React.FC = () => {
+
+    const { isAuth }: any = useAppSelector(state => state.user)
+
     return (
         <Routes>
             <Route path='/' element={<Layout />}>
-                <Route index element={<Home />} />
+                {isAuth ? <Route index element={<Home />} /> : <></>}
                 <Route path='login' element={<Login />} />
                 <Route path='registration' element={<Registration />} />
-                <Route path='account' element={<Account />} />
+                {isAuth ? <Route path='account' element={<Account />} /> : <></>}
                 <Route path='*' element={<ErrorPages />} />
             </Route>
         </Routes>

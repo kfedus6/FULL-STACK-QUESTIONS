@@ -60,11 +60,69 @@ header {
     opacity: 0.7;
 }
 
+.registration-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 150px;
+}
+
+.registration-form__block {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+.registration-form__block form {
+    width: 60%;
+}
+
+.registration-form__title {
+    width: 40%;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.login-form__ant {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 150px;
+}
+
+.login-form__block {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+.login-form__title {
+    width: 40%;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.login-form__block form {
+    width: 40%;
+}
+
+.login-button__ant div div div div {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
 
 footer {
     margin-top: auto;
     z-index: 100;
-}
+    box-shadow: 0 1px 4px hsl(0 4% 15% / 10%);
+} 
 
 footer div {
     display: flex;

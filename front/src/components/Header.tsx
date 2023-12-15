@@ -1,12 +1,20 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
-import { useAppSelector } from '../hooks/redux'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
+import { fetchLogout } from '../store/reducers/ActionCreators'
 
 const Header: React.FC = () => {
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const { isAuth }: any = useAppSelector(state => state.user)
+
+    const logout = () => {
+        dispatch(fetchLogout())
+        navigate('/login')
+    }
 
     return (
         <div className='header'>
@@ -36,7 +44,7 @@ const Header: React.FC = () => {
                             <NavLink to={'/account'}><UserOutlined /></NavLink>
                         </div>
                         <div>
-                            <Button type='primary' icon={<LogoutOutlined />}>
+                            <Button onClick={logout} type='primary' icon={<LogoutOutlined />}>
                                 Log Out
                             </Button>
                         </div>
