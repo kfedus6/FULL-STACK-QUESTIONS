@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import { fetchLogout } from '../store/reducers/ActionCreators'
+import { GoTasklist } from "react-icons/go";
 
 const Header: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -21,10 +22,10 @@ const Header: React.FC = () => {
             <div className='header-logo'>
                 <NavLink to={'/'}>Questions?</NavLink>
             </div>
-            <div className='header-authorization'>
-                {!isAuth
+            <div>
+                {isAuth
                     ?
-                    <nav>
+                    <nav className='header-authorization'>
                         <ul>
                             <li>
                                 <NavLink to={'/login'}>
@@ -39,16 +40,19 @@ const Header: React.FC = () => {
                         </ul>
                     </nav>
                     :
-                    <div className='header-account__logout'>
-                        <div className='header-account'>
-                            <NavLink to={'/account'}><UserOutlined /></NavLink>
-                        </div>
-                        <div>
-                            <Button onClick={logout} type='primary' icon={<LogoutOutlined />}>
-                                Log Out
-                            </Button>
-                        </div>
-                    </div>
+                    <nav className='header-menu__logout'>
+                        <ul>
+                            <li>
+                                <NavLink to={'/createTypeAndQuestion'}><GoTasklist size={23} /></NavLink>
+                            </li>
+                            <li>
+                                <NavLink to={'/account'}><UserOutlined /></NavLink>
+                            </li>
+                        </ul>
+                        <Button onClick={logout} type='primary' icon={<LogoutOutlined />}>
+                            Log Out
+                        </Button>
+                    </nav>
                 }
             </div>
         </div>

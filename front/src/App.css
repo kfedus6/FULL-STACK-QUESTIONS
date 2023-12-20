@@ -29,36 +29,47 @@ header {
     cursor: pointer
 }
 
-.header-authorization nav ul {
+.header-authorization ul {
     list-style: none;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.header-authorization nav ul li a {
+.header-authorization ul li a {
     text-decoration: none;
     color: black;
     font-weight: 600;
-}
+} 
 
-.header-account__logout {
+.header-menu__logout {
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 40px;
 }
 
-.header-account a {
-    font-size: 22px;
+.header-menu__logout ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-menu__logout ul li a{
     cursor: pointer;
+    font-size: 20px;
     color:blue;
     opacity: 1;
     transition: 0.3s;
 }
 
-.header-account a:hover {
-    opacity: 0.7;
+.header-menu__logout ul li:nth-child(1) {
+    margin-top: 8px;
 }
+
+.header-menu__logout ul li a:hover {
+    opacity: 0.7;
+} 
 
 .registration-form {
     display: flex;
@@ -122,7 +133,7 @@ footer {
     margin-top: auto;
     z-index: 100;
     box-shadow: 0 1px 4px hsl(0 4% 15% / 10%);
-} 
+}
 
 footer div {
     display: flex;

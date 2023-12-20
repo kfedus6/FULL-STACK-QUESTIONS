@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { IUser } from '../../types/types'
 
 export interface UserState {
-    user: [],
+    user: IUser[],
     isAuth: boolean
 }
 

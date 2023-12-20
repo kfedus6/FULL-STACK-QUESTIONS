@@ -4,6 +4,8 @@ import { toast } from "react-toastify"
 import { userSlice } from "./UserSlice";
 import $host, { API_URL } from "../../http";
 
+// Fetch User
+
 export const fetchRegistration = (userObj: any) => async (dispatch: AppDispatch) => {
     try {
         const response = await $host.post('/user/registration', userObj)
@@ -45,3 +47,7 @@ export const fetchRefresh = () => async (dispatch: AppDispatch) => {
     localStorage.setItem('token', response.data.accessToken)
     dispatch(userSlice.actions.refresh({ user: response.data.user, isAuth: true }))
 }
+
+// Fetch Type
+
+// Fetch Question
