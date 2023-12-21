@@ -23,7 +23,7 @@ const Header: React.FC = () => {
                 <NavLink to={'/'}>Questions?</NavLink>
             </div>
             <div>
-                {isAuth
+                {!isAuth
                     ?
                     <nav className='header-authorization'>
                         <ul>

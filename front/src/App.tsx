@@ -8,7 +8,7 @@ const App: React.FC = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        if (localStorage.getItem('token')) {
+        if (localStorage.getItem('accessToken')) {
             dispatch(fetchRefresh())
         }
     }, [])

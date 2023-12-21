@@ -143,3 +143,34 @@ footer div {
     cursor: default;
     font-weight: 600;
 }
+
+.page-type__question {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.block-type__question {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.block-type {
+    width: 100%;
+}
+
+.block-type form div:nth-child(2) div div div div {
+    display: flex;
+    gap: 10px;
+}
+
+.block-question {
+    width: 100%;
+}
+
+.block-question form div:nth-child(4) div div div div {
+    display: flex;
+    gap: 10px;
+}

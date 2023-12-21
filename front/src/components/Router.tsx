@@ -16,11 +16,11 @@ const Router: React.FC = () => {
     return (
         <Routes>
             <Route path='/' element={<Layout />}>
-                {!isAuth ? <Route index element={<Home />} /> : <></>}
+                {isAuth ? <Route index element={<Home />} /> : <></>}
                 <Route path='login' element={<Login />} />
                 <Route path='registration' element={<Registration />} />
-                {!isAuth ? <Route path='createTypeAndQuestion' element={<CreateTypeAndQuestion />} /> : <></>}
-                {!isAuth ? <Route path='account' element={<Account />} /> : <></>}
+                {isAuth ? <Route path='createTypeAndQuestion' element={<CreateTypeAndQuestion />} /> : <></>}
+                {isAuth ? <Route path='account' element={<Account />} /> : <></>}
                 <Route path='*' element={<ErrorPages />} />
             </Route>
         </Routes>

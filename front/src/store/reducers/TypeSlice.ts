@@ -16,7 +16,7 @@ export const typeSlice = createSlice({
         postIdType(state, actions: PayloadAction<TypeState>) {
             state.types = actions.payload.types
         },
-        getTypes(state, actions: PayloadAction<TypeState>) {
+        getIdTypes(state, actions: PayloadAction<TypeState>) {
             state.types = actions.payload.types
         },
         patchIdType(state, actions: PayloadAction<TypeState>) {

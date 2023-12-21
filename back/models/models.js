@@ -17,7 +17,7 @@ const Type = sequelize.define('type', {
 const Question = sequelize.define('question', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     question: { type: DataTypes.STRING, unique: true },
-    answer: { type: DataTypes.STRING, unique: true }
+    answer: { type: DataTypes.TEXT, unique: true }
 })
 
 const Token = sequelize.define('token', {

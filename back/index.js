@@ -4,7 +4,6 @@ const express = require('express')
 const sequelize = require('./db')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
-const models = require('./models/models')
 const errorMiddleware = require('./middlewares/error-moddleware')
 const router = require('./routes/index')
 

@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from 'axios'
 import { toast } from "react-toastify";
 
 export const API_URL = 'http://127.0.0.1:5000/api'
+const refreshToken = localStorage.getItem('refreshToken')
 
 const $host: AxiosInstance = axios.create({
     withCredentials: true,
@@ -20,8 +21,9 @@ $host.interceptors.response.use((config) => {
     if (error.response.status === 401 && error.config && !error.config._isRetry) {
         originalRequest._isRetry = true;
         try {
-            const response = await axios.get(`${API_URL}/user/refresh`, { withCredentials: true })
-            localStorage.setItem('token', response.data.accessToken)
+            const response = await axios.get(`${API_URL}/user/refresh/${refreshToken}`, { withCredentials: true })
+            localStorage.setItem('accessToken', response.data.accessToken)
+            localStorage.setItem('refreshToken', response.data.refreshToken)
             return $host.request(originalRequest);
         } catch (e) {
             toast.warning('Not authorized!')

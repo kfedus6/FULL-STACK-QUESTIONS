@@ -3,13 +3,15 @@ import axios from "axios"
 import { toast } from "react-toastify"
 import { userSlice } from "./UserSlice";
 import $host, { API_URL } from "../../http";
+import { typeSlice } from "./TypeSlice";
 
 // Fetch User
 
 export const fetchRegistration = (userObj: any) => async (dispatch: AppDispatch) => {
     try {
         const response = await $host.post('/user/registration', userObj)
-        localStorage.setItem('token', response.data.accessToken)
+        localStorage.setItem('accessToken', response.data.accessToken)
+        localStorage.setItem('refreshToken', response.data.refreshToken)
         dispatch(userSlice.actions.registration({ user: response.data.user, isAuth: true }))
         toast.success('Account has been created!')
     } catch (error: any) {
@@ -21,7 +23,8 @@ export const fetchRegistration = (userObj: any) => async (dispatch: AppDispatch)
 export const fetchLogin = (userObj: any) => async (dispatch: AppDispatch) => {
     try {
         const response = await $host.post('/user/login', userObj)
-        localStorage.setItem('token', response.data.accessToken)
+        localStorage.setItem('accessToken', response.data.accessToken)
+        localStorage.setItem('refreshToken', response.data.refreshToken)
         dispatch(userSlice.actions.login({ user: response.data.user, isAuth: true }))
         toast.success('You logged in!')
     } catch (error: any) {
@@ -32,8 +35,10 @@ export const fetchLogin = (userObj: any) => async (dispatch: AppDispatch) => {
 
 export const fetchLogout = () => async (dispatch: AppDispatch) => {
     try {
-        await $host.post('/user/logout')
-        localStorage.removeItem('token')
+        const refreshToken = localStorage.getItem('refreshToken')
+        await $host.post('/user/logout', { refreshToken })
+        localStorage.removeItem('accessToken')
+        localStorage.removeItem('refreshToken')
         dispatch(userSlice.actions.logout({ user: [], isAuth: false, }))
         toast.success('You are out!')
     } catch (error: any) {
@@ -43,11 +48,32 @@ export const fetchLogout = () => async (dispatch: AppDispatch) => {
 }
 
 export const fetchRefresh = () => async (dispatch: AppDispatch) => {
-    const response = await axios.get(`${API_URL}/user/refresh`, { withCredentials: true })
-    localStorage.setItem('token', response.data.accessToken)
+    const refreshToken = localStorage.getItem('refreshToken')
+    const response = await axios.get(`${API_URL}/user/refresh/${refreshToken}`, { withCredentials: true })
+    localStorage.setItem('accessToken', response.data.accessToken)
+    localStorage.setItem('refreshToken', response.data.refreshToken)
     dispatch(userSlice.actions.refresh({ user: response.data.user, isAuth: true }))
 }
 
 // Fetch Type
+
+export const fetchPostIdType = (title: string, userId: any) => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $host.post(`/type/${userId}`, title)
+        dispatch(typeSlice.actions.postIdType({ types: response.data.type }))
+        toast.success('You have created a type!')
+    } catch (error: any) {
+        toast.error(error.response.data.message)
+    }
+}
+
+export const fetchGetIdTypes = (userId: any) => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $host.get(`/type/${userId}`)
+        dispatch(typeSlice.actions.getIdTypes({ types: response.data.types }))
+    } catch (error: any) {
+        toast.error(error.response.data.message)
+    }
+}
 
 // Fetch Question
