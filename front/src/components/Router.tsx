@@ -8,6 +8,8 @@ import Layout from './Layout'
 import Login from '../pages/Login'
 import Registration from '../pages/Registration'
 import CreateTypeAndQuestion from '../pages/CreateTypeAndQuestion'
+import ShowQuestion from '../pages/ShowQuestion'
+import StartQuestion from '../pages/StartQuestion'
 
 const Router: React.FC = () => {
 
@@ -21,6 +23,8 @@ const Router: React.FC = () => {
                 <Route path='registration' element={<Registration />} />
                 {isAuth ? <Route path='createTypeAndQuestion' element={<CreateTypeAndQuestion />} /> : <></>}
                 {isAuth ? <Route path='account' element={<Account />} /> : <></>}
+                {isAuth ? <Route path='showQuestion' element={<ShowQuestion />} /> : <></>}
+                {isAuth ? <Route path='startQuestion' element={<StartQuestion />} /> : <></>}
                 <Route path='*' element={<ErrorPages />} />
             </Route>
         </Routes>

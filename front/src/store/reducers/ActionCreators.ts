@@ -4,6 +4,7 @@ import { toast } from "react-toastify"
 import { userSlice } from "./UserSlice";
 import $host, { API_URL } from "../../http";
 import { typeSlice } from "./TypeSlice";
+import { questionSlice } from "./QuestionSlice";
 
 // Fetch User
 
@@ -77,3 +78,13 @@ export const fetchGetIdTypes = (userId: any) => async (dispatch: AppDispatch) =>
 }
 
 // Fetch Question
+
+export const fetchPostIdQuestion = (typeId: any, data: any) => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $host.post(`/question/${typeId}`, data)
+        dispatch(questionSlice.actions.postIdQuestion({ questions: response.data.newQuestion }))
+        toast.success('You have created a question!')
+    } catch (error: any) {
+        toast.error(error.response.data.message)
+    }
+}

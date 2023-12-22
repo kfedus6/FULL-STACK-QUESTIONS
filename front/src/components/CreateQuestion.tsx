@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Button, Form, Input, Select } from 'antd';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { fetchGetIdTypes } from '../store/reducers/ActionCreators';
+import { fetchGetIdTypes, fetchPostIdQuestion } from '../store/reducers/ActionCreators';
 
 const { Option } = Select
 
@@ -22,8 +22,11 @@ const CreateQuestion: React.FC = () => {
         dispatch(fetchGetIdTypes(user.id))
     }, [])
 
-    const onFinish = (values: string) => {
-        console.log(values)
+    const onFinish = (values: any) => {
+        const typeId = values.type
+        const data = { 'question': values.question, 'answer': values.answer }
+        dispatch(fetchPostIdQuestion(typeId, data))
+        form.resetFields()
     }
 
     const onReset = () => {
@@ -64,7 +67,7 @@ const CreateQuestion: React.FC = () => {
                 name='answer'
                 rules={[{ required: true, message: 'Please textArea your asnwer!' }]}
             >
-                <Input.TextArea placeholder='Answer...' />
+                <Input.TextArea rows={6} placeholder='Answer...' />
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 0, span: 22 }}>
