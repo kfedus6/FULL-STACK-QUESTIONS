@@ -210,6 +210,7 @@ footer div {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-bottom: 50px;
 }
 
 .show-questions__title {
@@ -231,4 +232,13 @@ footer div {
 
 .show-questions__search form div:nth-child(2) {
     width: 95%;
+}
+
+/* Questions List */
+
+.questions-collapse {
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+    margin-bottom: 25px;
 }

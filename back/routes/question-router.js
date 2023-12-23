@@ -4,7 +4,7 @@ const questionController = require('../controllers/question-controller')
 const router = new Router()
 
 router.post('/:typeId', questionController.createIdQuestion)
-router.get('/:typeId', questionController.findAllIdQuestions)
+router.get('/', questionController.findAllQuestions)
 router.patch('/:id', questionController.updateIdQuestion)
 router.delete('/:id', questionController.destroyIdQuestion)
 

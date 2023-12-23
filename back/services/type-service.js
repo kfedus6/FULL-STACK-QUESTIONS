@@ -17,7 +17,9 @@ class TypeService {
             title: title,
             userId: userId
         })
-        return { type }
+        type.save()
+        const types = await Type.findAll({ where: { userId: userId } })
+        return { types }
     }
 
     async findAllIdType(userId) {

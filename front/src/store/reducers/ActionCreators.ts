@@ -1,10 +1,10 @@
 import { AppDispatch } from "../store";
 import axios from "axios"
-import { toast } from "react-toastify"
 import { userSlice } from "./UserSlice";
 import $host, { API_URL } from "../../http";
 import { typeSlice } from "./TypeSlice";
 import { questionSlice } from "./QuestionSlice";
+import { messageSlice } from "./MessageSlice";
 
 // Fetch User
 
@@ -14,10 +14,10 @@ export const fetchRegistration = (userObj: any) => async (dispatch: AppDispatch)
         localStorage.setItem('accessToken', response.data.accessToken)
         localStorage.setItem('refreshToken', response.data.refreshToken)
         dispatch(userSlice.actions.registration({ user: response.data.user, isAuth: true }))
-        toast.success('Account has been created!')
+        dispatch(messageSlice.actions.success({ successMessage: 'Account has been created!', errorMessage: null, warningMessage: null }))
     } catch (error: any) {
         dispatch(userSlice.actions.registration({ user: [], isAuth: false }))
-        toast.error(error.response.data.message)
+        dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
     }
 }
 
@@ -27,10 +27,11 @@ export const fetchLogin = (userObj: any) => async (dispatch: AppDispatch) => {
         localStorage.setItem('accessToken', response.data.accessToken)
         localStorage.setItem('refreshToken', response.data.refreshToken)
         dispatch(userSlice.actions.login({ user: response.data.user, isAuth: true }))
-        toast.success('You logged in!')
+        dispatch(messageSlice.actions.success({ successMessage: 'You logged in!', errorMessage: null, warningMessage: null }))
+
     } catch (error: any) {
         dispatch(userSlice.actions.login({ user: [], isAuth: false }))
-        toast.error(error.response.data.message)
+        dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
     }
 }
 
@@ -41,10 +42,10 @@ export const fetchLogout = () => async (dispatch: AppDispatch) => {
         localStorage.removeItem('accessToken')
         localStorage.removeItem('refreshToken')
         dispatch(userSlice.actions.logout({ user: [], isAuth: false, }))
-        toast.success('You are out!')
+        dispatch(messageSlice.actions.success({ successMessage: 'You are out!', errorMessage: null, warningMessage: null }))
     } catch (error: any) {
         dispatch(userSlice.actions.logout({ user: [], isAuth: false }))
-        toast.error(error.response.data.message)
+        dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
     }
 }
 
@@ -62,9 +63,9 @@ export const fetchPostIdType = (title: string, userId: any) => async (dispatch: 
     try {
         const response = await $host.post(`/type/${userId}`, title)
         dispatch(typeSlice.actions.postIdType({ types: response.data.type }))
-        toast.success('You have created a type!')
+        dispatch(messageSlice.actions.success({ successMessage: 'You have created a type!', errorMessage: null, warningMessage: null }))
     } catch (error: any) {
-        toast.error(error.response.data.message)
+        dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
     }
 }
 
@@ -73,7 +74,7 @@ export const fetchGetIdTypes = (userId: any) => async (dispatch: AppDispatch) =>
         const response = await $host.get(`/type/${userId}`)
         dispatch(typeSlice.actions.getIdTypes({ types: response.data.types }))
     } catch (error: any) {
-        toast.error(error.response.data.message)
+        dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
     }
 }
 
@@ -83,8 +84,21 @@ export const fetchPostIdQuestion = (typeId: any, data: any) => async (dispatch: 
     try {
         const response = await $host.post(`/question/${typeId}`, data)
         dispatch(questionSlice.actions.postIdQuestion({ questions: response.data.newQuestion }))
-        toast.success('You have created a question!')
+        dispatch(messageSlice.actions.success({ successMessage: 'You have created a question!', errorMessage: null, warningMessage: null }))
     } catch (error: any) {
-        toast.error(error.response.data.message)
+        dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
+    }
+}
+
+export const fetchGetQuestion = (data = {}) => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $host.get(`/question`, {
+            params: {
+                ...data
+            }
+        })
+        dispatch(questionSlice.actions.getQuestions({ questions: response.data.questions }))
+    } catch (error: any) {
+        dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
     }
 }

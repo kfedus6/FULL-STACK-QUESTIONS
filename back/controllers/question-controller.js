@@ -12,9 +12,11 @@ class QuestionController {
         }
     }
 
-    async findAllIdQuestions(req, res, next) {
+    async findAllQuestions(req, res, next) {
         try {
-
+            let { typeId, limit, page } = req.query
+            const questions = await questionService.findAllQuestion(typeId, limit, page)
+            return res.json(questions)
         } catch (e) {
             next(e)
         }

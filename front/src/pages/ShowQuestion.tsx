@@ -4,7 +4,7 @@ import QuestionsList from '../components/QuestionsList'
 
 const ShowQuestion: React.FC = () => {
 
-    const [typeId, setTypeId] = useState<number>(0)
+    const [typeId, setTypeId] = useState<number | undefined>(undefined)
 
     return (
         <div className='show-questions__content'>

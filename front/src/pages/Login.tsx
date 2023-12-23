@@ -15,6 +15,11 @@ const Login: React.FC = () => {
         navigate('/')
     }
 
+    const onFinishFailed = (errorInfo: any) => {
+        const userObj = errorInfo.values
+        dispatch(fetchLogin(userObj))
+    };
+
     return (
         <div className='login-form__ant'>
             <div className='login-form__block'>
@@ -25,6 +30,7 @@ const Login: React.FC = () => {
                     name="normal_login"
                     className="login-form"
                     onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
                 >
                     <Form.Item
                         name="email"
