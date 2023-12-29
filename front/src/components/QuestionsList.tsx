@@ -1,28 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { useAppDispatch, useAppSelector } from '../hooks/redux'
-import { fetchGetQuestion } from '../store/reducers/ActionCreators'
+import React from 'react'
 import { Collapse, Divider, Pagination } from 'antd'
-import type { PaginationProps } from 'antd'
 
 interface QuestionsListProps {
-    typeId: number | undefined
+    typeId: number | undefined,
+    onChange: any,
+    questions: any,
 }
 
-const QuestionsList: React.FC<QuestionsListProps> = ({ typeId }) => {
-    const [page, setPage] = useState<number>(1)
-    const [limit, setLimit] = useState<number>(8)
-
-    const dispatch = useAppDispatch()
-
-    const { questions }: any = useAppSelector(state => state.questions)
-
-    useEffect(() => {
-        dispatch(fetchGetQuestion({ typeId: typeId, limit: limit, page: page }))
-    }, [typeId, page])
-
-    const onChange: PaginationProps['onChange'] = (page) => {
-        setPage(page)
-    };
+const QuestionsList: React.FC<QuestionsListProps> = ({ typeId, onChange, questions }) => {
 
     return (
         <div>

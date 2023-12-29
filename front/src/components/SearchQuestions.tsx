@@ -6,10 +6,12 @@ import { fetchGetIdTypes } from '../store/reducers/ActionCreators'
 const { Option } = Select
 
 interface SearchQuestionProps {
-    setTypeId: (typeId: number) => void
+    setTypeId: (typeId: number) => void,
+    questions: any,
+    setValue: any,
 }
 
-const SearchQuestion: React.FC<SearchQuestionProps> = ({ setTypeId }) => {
+const SearchQuestion: React.FC<SearchQuestionProps> = ({ setTypeId, questions, setValue }) => {
     const [form] = Form.useForm()
 
     const dispatch = useAppDispatch()
@@ -40,7 +42,7 @@ const SearchQuestion: React.FC<SearchQuestionProps> = ({ setTypeId }) => {
             </Form.Item>
 
             <Form.Item>
-                <Input onChange={(e) => console.log(e.target.value)} placeholder='Search...' />
+                <Input onChange={(e) => setValue(e.target.value)} placeholder='Search...' />
             </Form.Item>
 
             <Form.Item>
