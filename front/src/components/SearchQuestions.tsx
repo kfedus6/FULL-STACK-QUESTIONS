@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Button, Form, Input, Select } from 'antd'
+import { Button, Form, Select, AutoComplete } from 'antd'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { fetchGetIdTypes } from '../store/reducers/ActionCreators'
 
@@ -7,11 +7,11 @@ const { Option } = Select
 
 interface SearchQuestionProps {
     setTypeId: (typeId: number) => void,
-    questions: any,
-    setValue: any,
+    setValue: (value: string) => void,
+    sorteredQuestions: any
 }
 
-const SearchQuestion: React.FC<SearchQuestionProps> = ({ setTypeId, questions, setValue }) => {
+const SearchQuestion: React.FC<SearchQuestionProps> = ({ setTypeId, setValue, sorteredQuestions }) => {
     const [form] = Form.useForm()
 
     const dispatch = useAppDispatch()
@@ -27,12 +27,21 @@ const SearchQuestion: React.FC<SearchQuestionProps> = ({ setTypeId, questions, s
         setTypeId(values.type)
     }
 
+    const onSelect = (data: string) => {
+        setValue(data)
+    }
+
+    const onSearch = (value: string) => {
+        setValue(value)
+    }
+
     return (
         <Form
             form={form}
             onFinish={onFinish}
             autoComplete="off"
         >
+
             <Form.Item name='type'>
                 <Select placeholder="Type" allowClear>
                     {types.map((item: any, idx: any) => (
@@ -42,7 +51,12 @@ const SearchQuestion: React.FC<SearchQuestionProps> = ({ setTypeId, questions, s
             </Form.Item>
 
             <Form.Item>
-                <Input onChange={(e) => setValue(e.target.value)} placeholder='Search...' />
+                <AutoComplete
+                    options={sorteredQuestions}
+                    onSelect={onSelect}
+                    onSearch={onSearch}
+                    placeholder="Search..."
+                />
             </Form.Item>
 
             <Form.Item>

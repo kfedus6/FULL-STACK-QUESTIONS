@@ -1,10 +1,9 @@
 import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
-import { LogoutOutlined, UserOutlined } from '@ant-design/icons'
+import { LogoutOutlined, UserOutlined, FormOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import { fetchLogout } from '../store/reducers/ActionCreators'
-import { GoTasklist } from "react-icons/go";
 
 const Header: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -40,16 +39,16 @@ const Header: React.FC = () => {
                         </ul>
                     </nav>
                     :
-                    <nav className='header-menu__logout'>
+                    <nav className='header-menu-icons__logout'>
                         <ul>
                             <li>
-                                <NavLink to={'/createTypeAndQuestion'}><GoTasklist size={23} /></NavLink>
+                                <NavLink to={'/createTypeAndQuestion'}><FormOutlined /></NavLink>
                             </li>
                             <li>
                                 <NavLink to={'/account'}><UserOutlined /></NavLink>
                             </li>
                         </ul>
-                        <Button onClick={logout} type='primary' icon={<LogoutOutlined />}>
+                        <Button className='header-logout__btn' onClick={logout} type='primary' icon={<LogoutOutlined className='header-logout__icons' />}>
                             Log Out
                         </Button>
                     </nav>

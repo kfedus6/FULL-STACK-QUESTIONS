@@ -42,7 +42,7 @@ const CreateType: React.FC = () => {
 
             <Form.Item wrapperCol={{ offset: 0, span: 22 }}>
                 <Button type="primary" htmlType="submit">
-                    Submit
+                    Create
                 </Button>
                 <Button htmlType="button" onClick={onReset}>
                     Reset

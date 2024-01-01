@@ -44,36 +44,42 @@ header {
     font-weight: 600;
 } 
 
-.header-menu__logout {
+.header-menu-icons__logout {
     display: flex;
     align-items: center;
     gap: 40px;
 }
 
-.header-menu__logout ul {
+.header-menu-icons__logout ul {
     list-style: none;
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-.header-menu__logout ul li a{
+.header-menu-icons__logout ul li a{
     cursor: pointer;
-    font-size: 20px;
-    color:blue;
+    font-size: 17px;
+    color:black;
     opacity: 1;
     transition: 0.3s;
 }
 
-.header-menu__logout ul li:nth-child(1) {
-    margin-top: 8px;
+.header-menu-icons__logout ul li a:hover {
+    color: blue;
 }
 
-.header-menu__logout ul li a:hover {
-    opacity: 0.7;
-} 
+.header-logout__btn {
+    display: flex;
+    align-items: center;
+}
+
+.header-logout__icons {
+    font-size: 17px;
+}
 
 /* Registration and Login */
+
 .registration-form {
     display: flex;
     align-items: center;
@@ -232,7 +238,7 @@ footer div {
 
 .show-questions__search form div:nth-child(2) {
     width: 95%;
-}
+} 
 
 /* Questions List */
 
@@ -241,4 +247,19 @@ footer div {
     flex-direction: column;
     gap:10px;
     margin-bottom: 25px;
+}
+
+.questions-list-collapse__icons {
+    display: flex;
+    gap: 15px;
+}
+
+.questions-list-collapse__icon {
+    font-size: 17px;
+}
+
+.questions-list-collapse__icon:hover {
+    color:blue;
+    opacity: 1;
+    transition: 0.3s;
 }
