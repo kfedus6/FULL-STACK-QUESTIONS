@@ -4,10 +4,12 @@ import { IQuestion } from '../../types/types'
 
 export interface QuestionState {
     questions: { count: number, rows: IQuestion[] };
+    gameQuestions: IQuestion[];
 }
 
 const initialState: QuestionState = {
     questions: { count: 0, rows: [] },
+    gameQuestions: []
 }
 
 export const questionSlice = createSlice({
@@ -19,6 +21,9 @@ export const questionSlice = createSlice({
         },
         getQuestions(state, actions: PayloadAction<QuestionState>) {
             state.questions = actions.payload.questions
+        },
+        getIdQuestions(state, actions: PayloadAction<QuestionState>) {
+            state.gameQuestions = actions.payload.gameQuestions
         },
         patchIdQuestion(state, actions: PayloadAction<QuestionState>) {
             state.questions = actions.payload.questions

@@ -83,7 +83,7 @@ export const fetchGetIdTypes = (userId: any) => async (dispatch: AppDispatch) =>
 export const fetchPostIdQuestion = (typeId: any, data: any) => async (dispatch: AppDispatch) => {
     try {
         const response = await $host.post(`/question/${typeId}`, data)
-        dispatch(questionSlice.actions.postIdQuestion({ questions: response.data.newQuestion }))
+        dispatch(questionSlice.actions.postIdQuestion({ questions: response.data.newQuestion, gameQuestions: [] }))
         dispatch(messageSlice.actions.success({ successMessage: 'You have created a question!', errorMessage: null, warningMessage: null }))
     } catch (error: any) {
         dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
@@ -97,7 +97,44 @@ export const fetchGetQuestion = (data = {}) => async (dispatch: AppDispatch) => 
                 ...data
             }
         })
-        dispatch(questionSlice.actions.getQuestions({ questions: response.data.questions }))
+        dispatch(questionSlice.actions.getQuestions({ questions: response.data.questions, gameQuestions: [] }))
+    } catch (error: any) {
+        dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
+    }
+}
+
+export const fetchGetIdQuestion = (id: any) => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $host.get(`/question/${id}`)
+        dispatch(questionSlice.actions.getIdQuestions({ gameQuestions: response.data.questions, questions: { count: 0, rows: [] } }))
+    } catch (error: any) {
+        dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
+    }
+}
+
+export const fetchPatchIdQuestion = (id: any, data: any) => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $host.patch(`/question/${id}`, {
+            params: {
+                ...data
+            }
+        })
+        dispatch(questionSlice.actions.patchIdQuestion({ questions: response.data.questions, gameQuestions: [] }))
+        dispatch(messageSlice.actions.success({ successMessage: 'You have updated a question!', errorMessage: null, warningMessage: null }))
+    } catch (error: any) {
+        dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
+    }
+}
+
+export const fetchDeleteIdQuestion = (id: any, data: any) => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $host.delete(`/question/${id}`, {
+            params: {
+                ...data
+            }
+        })
+        dispatch(questionSlice.actions.deleteIdQuestion({ questions: response.data.questions, gameQuestions: [] }))
+        dispatch(messageSlice.actions.success({ successMessage: 'You have deleted a question!', errorMessage: null, warningMessage: null }))
     } catch (error: any) {
         dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
     }

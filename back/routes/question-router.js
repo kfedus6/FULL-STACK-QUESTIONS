@@ -5,6 +5,7 @@ const router = new Router()
 
 router.post('/:typeId', questionController.createIdQuestion)
 router.get('/', questionController.findAllQuestions)
+router.get('/:id', questionController.findAllIdQuestions)
 router.patch('/:id', questionController.updateIdQuestion)
 router.delete('/:id', questionController.destroyIdQuestion)
 

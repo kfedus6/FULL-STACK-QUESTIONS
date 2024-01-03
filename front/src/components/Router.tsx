@@ -10,6 +10,7 @@ import Registration from '../pages/Registration'
 import CreateTypeAndQuestion from '../pages/CreateTypeAndQuestion'
 import ShowQuestion from '../pages/ShowQuestion'
 import StartQuestion from '../pages/StartQuestion'
+import StartQuestionsGame from '../pages/StartQuestionsGame'
 
 const Router: React.FC = () => {
 
@@ -25,6 +26,7 @@ const Router: React.FC = () => {
                 {isAuth ? <Route path='account' element={<Account />} /> : <></>}
                 {isAuth ? <Route path='showQuestion' element={<ShowQuestion />} /> : <></>}
                 {isAuth ? <Route path='startQuestion' element={<StartQuestion />} /> : <></>}
+                {isAuth ? <Route path='startQuestionGame/:id' element={<StartQuestionsGame />} /> : <></>}
                 <Route path='*' element={<ErrorPages />} />
             </Route>
         </Routes>

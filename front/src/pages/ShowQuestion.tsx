@@ -46,7 +46,7 @@ const ShowQuestion: React.FC = () => {
             <div className='show-questions__search'>
                 <div className='show-questions__title'>Search questions!</div>
                 <SearchQuestion setTypeId={setTypeId} setValue={setValue} sorteredQuestions={sorteredQuestions} />
-                <QuestionsList typeId={typeId} onChange={onChange} questions={questions} sorteredQuestions={sorteredQuestions} />
+                <QuestionsList page={page} limit={limit} onChange={onChange} questions={questions} sorteredQuestions={sorteredQuestions} dispatch={dispatch} />
             </div>
         </div>
     )

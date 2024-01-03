@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
 import { Collapse, Divider, Pagination } from 'antd'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { fetchDeleteIdQuestion } from '../store/reducers/ActionCreators'
 
 interface QuestionsListProps {
-    typeId: number | undefined,
-    onChange: any,
+    onChange: ((page: number, pageSize: number) => void) | undefined,
     sorteredQuestions: any,
     questions: any,
+    dispatch: any,
+    page: any,
+    limit: any
 }
 
 type ExpandIconPosition = 'start'
 
-const QuestionsList: React.FC<QuestionsListProps> = ({ typeId, onChange, questions, sorteredQuestions }) => {
+const QuestionsList: React.FC<QuestionsListProps> = ({ onChange, questions, sorteredQuestions, dispatch, page, limit }) => {
     const [expandIconPosition, setExpandIconPosition] = useState<ExpandIconPosition>('start')
 
     const genExtra = (id: number) => (
@@ -24,7 +27,7 @@ const QuestionsList: React.FC<QuestionsListProps> = ({ typeId, onChange, questio
             />
             <DeleteOutlined className='questions-list-collapse__icon'
                 onClick={(event) => {
-                    console.log(id)
+                    dispatch(fetchDeleteIdQuestion(id, { page: page, limit: limit }))
                     event.stopPropagation()
                 }}
             />

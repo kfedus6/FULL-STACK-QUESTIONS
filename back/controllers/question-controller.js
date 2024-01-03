@@ -22,6 +22,16 @@ class QuestionController {
         }
     }
 
+    async findAllIdQuestions(req, res, next) {
+        try {
+            const { id } = req.params
+            const questions = await questionService.findAllIdQuestion(id)
+            return res.json(questions)
+        } catch (e) {
+            next(e)
+        }
+    }
+
     async updateIdQuestion(req, res, next) {
         try {
 
@@ -32,7 +42,10 @@ class QuestionController {
 
     async destroyIdQuestion(req, res, next) {
         try {
-
+            const { id } = req.params
+            const { limit, page } = req.query
+            const questions = await questionService.destroyIdQuestion(id, limit, page)
+            return res.json(questions)
         } catch (e) {
             next(e)
         }

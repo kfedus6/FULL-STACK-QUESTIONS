@@ -48,7 +48,7 @@ const Header: React.FC = () => {
                                 <NavLink to={'/account'}><UserOutlined /></NavLink>
                             </li>
                         </ul>
-                        <Button className='header-logout__btn' onClick={logout} type='primary' icon={<LogoutOutlined className='header-logout__icons' />}>
+                        <Button className='header-logout__btn' onClick={logout} type='primary' danger icon={<LogoutOutlined className='header-logout__icons' />}>
                             Log Out
                         </Button>
                     </nav>
