@@ -315,6 +315,8 @@ footer div {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
 }
 
 .start-questions-random__blcok {
@@ -357,5 +359,9 @@ footer div {
     color: red;
     opacity: 1;
     transition: 1s;
-    rotate: y 360deg;
+    rotate: y 180deg;
+}
+
+.start-question-random__answer {
+    cursor: pointer;
 }
