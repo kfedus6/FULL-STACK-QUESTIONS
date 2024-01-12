@@ -19,7 +19,7 @@ const Header: React.FC = () => {
     return (
         <div className='header'>
             <div className='header-logo'>
-                <NavLink to={'/'}>Questions?</NavLink>
+                <NavLink to={'/'}>Questions</NavLink>
             </div>
             <div>
                 {!isAuth

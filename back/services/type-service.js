@@ -26,6 +26,11 @@ class TypeService {
         const types = await Type.findAll({ where: { userId: userId } })
         return { types }
     }
+
+    async findOneIdType(userId, id) {
+        const type = await Type.findOne({ where: { id: id } })
+        return { type }
+    }
 }
 
 module.exports = new TypeService()

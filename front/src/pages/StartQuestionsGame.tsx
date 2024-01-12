@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
-import { fetchGetIdQuestion } from '../store/reducers/ActionCreators'
-import { CheckOutlined, CloseOutlined, SmileOutlined, MehOutlined, FrownOutlined, ConsoleSqlOutlined } from '@ant-design/icons'
+import { fetchGetIdQuestion, fetchGetIdType, fetchPostBasket } from '../store/reducers/ActionCreators'
+import { CheckOutlined, CloseOutlined, SmileOutlined, MehOutlined, FrownOutlined } from '@ant-design/icons'
 import { Button, Result } from 'antd'
 
 const StartQuestionsGame: React.FC = () => {
@@ -10,17 +10,21 @@ const StartQuestionsGame: React.FC = () => {
     const [gamesQuestions, setGamesQuestions] = useState<any>([])
     const [gameQuestion, setGameQuestion] = useState<any>()
     const [correctQuestions, setCorrectQuestions] = useState<number>(0)
-    const [precentCorrectQuestions, setPresentCorrectQuestions] = useState<number>(0)
+    const [percentCorrectQuestions, setPercentCorrectQuestions] = useState<number>(0)
     const [countGamesQuestions, setCountGamesQuestions] = useState<any>(1)
+    const [resultQuestions, setResultQuestions] = useState<any>([])
 
     const { id } = useParams()
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
     const { gameQuestions }: any = useAppSelector(state => state.questions)
+    const { user }: any = useAppSelector(state => state.user)
+    const { type }: any = useAppSelector(state => state.types)
 
     useEffect(() => {
         dispatch(fetchGetIdQuestion(id))
+        dispatch(fetchGetIdType(user.id, id))
     }, [])
 
     useMemo(() => {
@@ -37,17 +41,28 @@ const StartQuestionsGame: React.FC = () => {
         const randomGameQuestion = gamesQuestions[random]
         setGameQuestion(randomGameQuestion)
         const filteredGameQuestions = gamesQuestions.filter((item: any) => item.id !== randomGameQuestion.id)
+        let findQuestion = gamesQuestions.find((item: any) => item.id == randomGameQuestion.id)
+        if (findQuestion) {
+            let objQuestion = { id: findQuestion.id, question: findQuestion.question, status: false }
+            resultQuestions.push(objQuestion)
+        }
         setGamesQuestions(filteredGameQuestions)
         setCountGamesQuestions(countGamesQuestions - 1)
         if (str === 'correct') {
             setCorrectQuestions(correctQuestions + 1)
         }
     }
-
+    console.log(resultQuestions)
     useEffect(() => {
         let precent = correctQuestions / gameQuestions.length * 100
-        setPresentCorrectQuestions(Math.round(precent))
+        setPercentCorrectQuestions(Math.round(precent))
     }, [correctQuestions])
+
+    const goHome = () => {
+        dispatch(fetchPostBasket(percentCorrectQuestions, type.title, type.id, user.id))
+        navigate('/')
+    }
+
 
     return (
         <div className='start-questions-game__content'>
@@ -75,9 +90,9 @@ const StartQuestionsGame: React.FC = () => {
                     </div>
                     :
                     <Result
-                        icon={precentCorrectQuestions < 40 ? <FrownOutlined /> : precentCorrectQuestions < 70 ? <MehOutlined /> : <SmileOutlined />}
-                        title={precentCorrectQuestions < 40 ? `You are very stupid, try again - ${precentCorrectQuestions}%` : precentCorrectQuestions < 70 ? `Not bad, but you can do better - ${precentCorrectQuestions}%` : `So that I don't see you here again, smart man - ${precentCorrectQuestions}%`}
-                        extra={<Button onClick={() => navigate('/')} type="primary">Go Home</Button>}
+                        icon={percentCorrectQuestions < 40 ? <FrownOutlined /> : percentCorrectQuestions < 70 ? <MehOutlined /> : <SmileOutlined />}
+                        title={percentCorrectQuestions < 40 ? `You are very stupid, try again - ${percentCorrectQuestions}%` : percentCorrectQuestions < 70 ? `Not bad, but you can do better - ${percentCorrectQuestions}%` : `So that I don't see you here again, smart man - ${percentCorrectQuestions}%`}
+                        extra={<Button onClick={goHome} type="primary">Go Home</Button>}
                     />
                 }
             </div>

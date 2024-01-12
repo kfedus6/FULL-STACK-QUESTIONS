@@ -22,6 +22,16 @@ class TypeController {
         }
     }
 
+    async findOneIdType(req, res, next) {
+        try {
+            const { userId, id } = req.params
+            const type = await typeService.findOneIdType(userId, id)
+            return res.json(type)
+        } catch (e) {
+            next(e)
+        }
+    }
+
     async updateIdType(req, res, next) {
         try {
 

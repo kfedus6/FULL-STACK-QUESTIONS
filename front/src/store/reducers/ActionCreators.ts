@@ -62,7 +62,7 @@ export const fetchRefresh = () => async (dispatch: AppDispatch) => {
 export const fetchPostIdType = (title: string, userId: any) => async (dispatch: AppDispatch) => {
     try {
         const response = await $host.post(`/type/${userId}`, title)
-        dispatch(typeSlice.actions.postIdType({ types: response.data.type }))
+        dispatch(typeSlice.actions.postIdType({ types: response.data.type, type: {} }))
         dispatch(messageSlice.actions.success({ successMessage: 'You have created a type!', errorMessage: null, warningMessage: null }))
     } catch (error: any) {
         dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
@@ -72,7 +72,16 @@ export const fetchPostIdType = (title: string, userId: any) => async (dispatch: 
 export const fetchGetIdTypes = (userId: any) => async (dispatch: AppDispatch) => {
     try {
         const response = await $host.get(`/type/${userId}`)
-        dispatch(typeSlice.actions.getIdTypes({ types: response.data.types }))
+        dispatch(typeSlice.actions.getIdTypes({ types: response.data.types, type: {} }))
+    } catch (error: any) {
+        dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
+    }
+}
+
+export const fetchGetIdType = (userId: any, id: any) => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $host.get(`/type/${userId}/${id}`)
+        dispatch(typeSlice.actions.getIdType({ type: response.data.type, types: [] }))
     } catch (error: any) {
         dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
     }
@@ -138,4 +147,11 @@ export const fetchDeleteIdQuestion = (id: any, data: any) => async (dispatch: Ap
     } catch (error: any) {
         dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
     }
+}
+
+// Fetch Basket
+
+export const fetchPostBasket = (percentCorrectQuestions: any, title: any, id: any, userId: any) => async (dispatch: AppDispatch) => {
+    const response = await $host.post(`/basket/${userId}/${id}`, { percentCorrectQuestions, title })
+    console.log(percentCorrectQuestions, title, id, userId)
 }

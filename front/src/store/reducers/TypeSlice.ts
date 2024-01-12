@@ -2,11 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IType } from '../../types/types'
 
 export interface TypeState {
-    types: IType[]
+    types: IType[],
+    type: {},
 }
 
 const initialState: TypeState = {
-    types: []
+    types: [],
+    type: {}
 }
 
 export const typeSlice = createSlice({
@@ -18,6 +20,9 @@ export const typeSlice = createSlice({
         },
         getIdTypes(state, actions: PayloadAction<TypeState>) {
             state.types = actions.payload.types
+        },
+        getIdType(state, actions: PayloadAction<TypeState>) {
+            state.type = actions.payload.type
         },
         patchIdType(state, actions: PayloadAction<TypeState>) {
             state.types = actions.payload.types

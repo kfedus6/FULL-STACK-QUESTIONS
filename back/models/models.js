@@ -25,13 +25,25 @@ const Token = sequelize.define('token', {
     refreshToken: { type: DataTypes.STRING, require: true }
 })
 
+const Basket = sequelize.define('basket', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    title: { type: DataTypes.STRING },
+    resultPercent: { type: DataTypes.STRING }
+})
+
 User.hasMany(Type)
 Type.belongsTo(User)
 
 User.hasMany(Token)
 Token.belongsTo(User)
 
+User.hasMany(Basket)
+Basket.belongsTo(User)
+
 Type.hasMany(Question)
 Question.belongsTo(Type)
 
-module.exports = { User, Type, Question, Token }
+Type.hasMany(Basket)
+Basket.belongsTo(Type)
+
+module.exports = { User, Type, Question, Token, Basket }

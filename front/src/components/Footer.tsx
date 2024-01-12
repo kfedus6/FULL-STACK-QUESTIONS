@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer: React.FC = () => {
     return (
-        <div>Can you answe? Try it.</div>
+        <div>Can you answer? Try it.</div>
     )
 }
 
