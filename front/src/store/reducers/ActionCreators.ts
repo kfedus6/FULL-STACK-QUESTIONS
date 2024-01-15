@@ -121,6 +121,10 @@ export const fetchGetIdQuestion = (id: any) => async (dispatch: AppDispatch) => 
     }
 }
 
+export const fetchGetIdQuestionStateUpdated = () => async (dispatch: AppDispatch) => {
+    dispatch(questionSlice.actions.getIdQuestions({ gameQuestions: [], questions: { count: 0, rows: [] } }))
+}
+
 export const fetchPatchIdQuestion = (id: any, data: any) => async (dispatch: AppDispatch) => {
     try {
         const response = await $host.patch(`/question/${id}`, {
@@ -151,7 +155,7 @@ export const fetchDeleteIdQuestion = (id: any, data: any) => async (dispatch: Ap
 
 // Fetch Basket
 
-export const fetchPostBasket = (percentCorrectQuestions: any, title: any, id: any, userId: any) => async (dispatch: AppDispatch) => {
-    const response = await $host.post(`/basket/${userId}/${id}`, { percentCorrectQuestions, title })
+export const fetchPostBasket = (percentCorrectQuestions: any, title: any, id: any, userId: any, resultQuestions: any) => async (dispatch: AppDispatch) => {
+    const response = await $host.post(`/basket/${userId}/${id}`, { percentCorrectQuestions, title, resultQuestions })
     console.log(percentCorrectQuestions, title, id, userId)
 }

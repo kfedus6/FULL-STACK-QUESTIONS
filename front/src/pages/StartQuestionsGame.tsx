@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
-import { fetchGetIdQuestion, fetchGetIdType, fetchPostBasket } from '../store/reducers/ActionCreators'
+import { fetchGetIdQuestion, fetchGetIdQuestionStateUpdated, fetchGetIdType, fetchPostBasket } from '../store/reducers/ActionCreators'
 import { CheckOutlined, CloseOutlined, SmileOutlined, MehOutlined, FrownOutlined } from '@ant-design/icons'
 import { Button, Result } from 'antd'
 
@@ -27,12 +27,16 @@ const StartQuestionsGame: React.FC = () => {
         dispatch(fetchGetIdType(user.id, id))
     }, [])
 
-    useMemo(() => {
+    useEffect(() => {
         setCountGamesQuestions(gameQuestions.length)
         const random = Math.floor(Math.random() * gameQuestions.length)
         const randomGameQuestion = gameQuestions[random]
         setGameQuestion(randomGameQuestion)
         const filteredGameQuestions = gameQuestions.filter((item: any) => item.id !== randomGameQuestion.id)
+        if (randomGameQuestion) {
+            let objQuestion = { id: randomGameQuestion.id, question: randomGameQuestion.question, status: false }
+            resultQuestions.push(objQuestion)
+        }
         setGamesQuestions(filteredGameQuestions)
     }, [gameQuestions])
 
@@ -41,10 +45,14 @@ const StartQuestionsGame: React.FC = () => {
         const randomGameQuestion = gamesQuestions[random]
         setGameQuestion(randomGameQuestion)
         const filteredGameQuestions = gamesQuestions.filter((item: any) => item.id !== randomGameQuestion.id)
-        let findQuestion = gamesQuestions.find((item: any) => item.id == randomGameQuestion.id)
-        if (findQuestion) {
-            let objQuestion = { id: findQuestion.id, question: findQuestion.question, status: false }
-            resultQuestions.push(objQuestion)
+        if (randomGameQuestion) {
+            if (str === 'correct') {
+                let objQuestion = { id: randomGameQuestion.id, question: randomGameQuestion.question, status: true }
+                resultQuestions.push(objQuestion)
+            } else {
+                let objQuestion = { id: randomGameQuestion.id, question: randomGameQuestion.question, status: false }
+                resultQuestions.push(objQuestion)
+            }
         }
         setGamesQuestions(filteredGameQuestions)
         setCountGamesQuestions(countGamesQuestions - 1)
@@ -52,17 +60,17 @@ const StartQuestionsGame: React.FC = () => {
             setCorrectQuestions(correctQuestions + 1)
         }
     }
-    console.log(resultQuestions)
+
     useEffect(() => {
         let precent = correctQuestions / gameQuestions.length * 100
         setPercentCorrectQuestions(Math.round(precent))
     }, [correctQuestions])
 
     const goHome = () => {
-        dispatch(fetchPostBasket(percentCorrectQuestions, type.title, type.id, user.id))
+        dispatch(fetchPostBasket(percentCorrectQuestions, type.title, type.id, user.id, resultQuestions))
+        dispatch(fetchGetIdQuestionStateUpdated())
         navigate('/')
     }
-
 
     return (
         <div className='start-questions-game__content'>

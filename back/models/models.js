@@ -31,6 +31,12 @@ const Basket = sequelize.define('basket', {
     resultPercent: { type: DataTypes.STRING }
 })
 
+const History = sequelize.define('history', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    question: { type: DataTypes.STRING },
+    status: { type: DataTypes.BOOLEAN }
+})
+
 User.hasMany(Type)
 Type.belongsTo(User)
 
@@ -46,4 +52,13 @@ Question.belongsTo(Type)
 Type.hasMany(Basket)
 Basket.belongsTo(Type)
 
-module.exports = { User, Type, Question, Token, Basket }
+User.hasMany(History)
+History.belongsTo(User)
+
+Type.hasMany(History)
+History.belongsTo(Type)
+
+Basket.hasMany(History)
+History.belongsTo(Basket)
+
+module.exports = { User, Type, Question, Token, Basket, History }
