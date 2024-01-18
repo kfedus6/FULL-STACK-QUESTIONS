@@ -365,3 +365,18 @@ footer div {
 .start-question-random__answer {
     cursor: pointer;
 }
+
+/* Basket and History */
+
+.basket-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.basket-hostory {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

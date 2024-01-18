@@ -3,12 +3,16 @@ import user from './reducers/UserSlice'
 import types from './reducers/TypeSlice'
 import questions from './reducers/QuestionSlice'
 import message from './reducers/MessageSlice'
+import baskets from './reducers/BasketSlice'
+import histories from './reducers/HistorySlice'
 
 const rootReducer = combineReducers({
     user,
     types,
     questions,
-    message
+    message,
+    baskets,
+    histories
 })
 
 export const setupStore = () => {

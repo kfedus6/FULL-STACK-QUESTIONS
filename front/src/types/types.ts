@@ -16,3 +16,20 @@ export interface IQuestion {
     question: string;
     answer: string;
 }
+
+export interface IBasket {
+    id: number;
+    title: string;
+    resultPercent: number | string,
+    userId: number;
+    typeId: number;
+}
+
+export interface IHistory {
+    id: number;
+    question: string;
+    status: boolean,
+    userId: number;
+    typeId: number;
+    basketId: number;
+}

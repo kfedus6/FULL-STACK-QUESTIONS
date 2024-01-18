@@ -5,6 +5,8 @@ import $host, { API_URL } from "../../http";
 import { typeSlice } from "./TypeSlice";
 import { questionSlice } from "./QuestionSlice";
 import { messageSlice } from "./MessageSlice";
+import { basketSlice } from "./BasketSlice";
+import { historySlice } from "./HistorySlice";
 
 // Fetch User
 
@@ -153,9 +155,31 @@ export const fetchDeleteIdQuestion = (id: any, data: any) => async (dispatch: Ap
     }
 }
 
-// Fetch Basket
+// Fetch Basket and History
 
 export const fetchPostBasket = (percentCorrectQuestions: any, title: any, id: any, userId: any, resultQuestions: any) => async (dispatch: AppDispatch) => {
-    const response = await $host.post(`/basket/${userId}/${id}`, { percentCorrectQuestions, title, resultQuestions })
-    console.log(percentCorrectQuestions, title, id, userId)
+    try {
+        const response = await $host.post(`/basket/${userId}/${id}`, { percentCorrectQuestions, title, resultQuestions })
+        dispatch(basketSlice.actions.postBasket({ baskets: response.data.basket }))
+    } catch (error: any) {
+        dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
+    }
+}
+
+export const fetchgetIdBaskets = (userId: any) => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $host.get(`/basket/${userId}`)
+        dispatch(basketSlice.actions.getIdBaskets({ baskets: response.data.baskets }))
+    } catch (error: any) {
+        dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
+    }
+}
+
+export const fetchGetIdBasketHistories = (basketId: any) => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $host.get(`/basket/history/${basketId}`)
+        dispatch(historySlice.actions.getIdHistories({ histories: response.data.histories }))
+    } catch (error: any) {
+        dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
+    }
 }
