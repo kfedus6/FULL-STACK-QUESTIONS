@@ -34,7 +34,7 @@ const StartQuestionsGame: React.FC = () => {
         setGameQuestion(randomGameQuestion)
         const filteredGameQuestions = gameQuestions.filter((item: any) => item.id !== randomGameQuestion.id)
         if (randomGameQuestion) {
-            let objQuestion = { id: randomGameQuestion.id, question: randomGameQuestion.question, status: false }
+            let objQuestion = { id: randomGameQuestion.id, question: randomGameQuestion.question, status: true }
             resultQuestions.push(objQuestion)
         }
         setGamesQuestions(filteredGameQuestions)

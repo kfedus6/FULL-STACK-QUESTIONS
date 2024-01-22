@@ -374,9 +374,30 @@ footer div {
     align-items: center;
 }
 
-.basket-hostory {
+.basket-history {
     width: 80%;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.basket-user {
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.basket-title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.baskets-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.basket-dropdown div {
+    font-size: 15px;
 }
