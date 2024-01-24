@@ -166,9 +166,13 @@ export const fetchPostBasket = (percentCorrectQuestions: any, title: any, id: an
     }
 }
 
-export const fetchgetIdBaskets = (userId: any) => async (dispatch: AppDispatch) => {
+export const fetchgetIdBaskets = (data = {}) => async (dispatch: AppDispatch) => {
     try {
-        const response = await $host.get(`/basket/${userId}`)
+        const response = await $host.get(`/basket`, {
+            params: {
+                ...data
+            }
+        })
         dispatch(basketSlice.actions.getIdBaskets({ baskets: response.data.baskets }))
     } catch (error: any) {
         dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))

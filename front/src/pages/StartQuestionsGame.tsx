@@ -98,8 +98,8 @@ const StartQuestionsGame: React.FC = () => {
                     </div>
                     :
                     <Result
-                        icon={percentCorrectQuestions < 40 ? <FrownOutlined /> : percentCorrectQuestions < 70 ? <MehOutlined /> : <SmileOutlined />}
-                        title={percentCorrectQuestions < 40 ? `You are very stupid, try again - ${percentCorrectQuestions}%` : percentCorrectQuestions < 70 ? `Not bad, but you can do better - ${percentCorrectQuestions}%` : `So that I don't see you here again, smart man - ${percentCorrectQuestions}%`}
+                        icon={percentCorrectQuestions < 50 ? <FrownOutlined /> : percentCorrectQuestions < 80 ? <MehOutlined /> : <SmileOutlined />}
+                        title={percentCorrectQuestions < 50 ? `You are very stupid, try again - ${percentCorrectQuestions}%` : percentCorrectQuestions < 70 ? `Not bad, but you can do better - ${percentCorrectQuestions}%` : `So that I don't see you here again, smart man - ${percentCorrectQuestions}%`}
                         extra={<Button onClick={goHome} type="primary">Go Home</Button>}
                     />
                 }

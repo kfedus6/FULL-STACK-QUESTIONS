@@ -21,8 +21,23 @@ class BasketService {
         return { basket }
     }
 
-    async getIdAllBasket(userId) {
-        const baskets = await Basket.findAll({ where: { userId: userId } })
+    async getIdAllBasket(userId, typeId, limit, page) {
+        if (limit == undefined) {
+            limit = 10
+        }
+
+        if (page == undefined) {
+            page = 1
+        }
+
+        let offset = page * limit - limit
+        let baskets
+
+        if (typeId === undefined) {
+            baskets = await Basket.findAndCountAll({ limit: Number(limit), offset: Number(offset) })
+        } else {
+            baskets = await Basket.findAndCountAll({ where: { userId: userId, typeId: typeId } }, { limit: Number(limit), offset: Number(offset) })
+        }
         return { baskets }
     }
 

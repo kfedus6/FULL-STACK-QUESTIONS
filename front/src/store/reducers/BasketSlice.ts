@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IBasket } from '../../types/types'
 
 export interface BasketState {
-    baskets: IBasket[]
+    baskets: { count: number, rows: IBasket[] }
 }
 
 const initialState: BasketState = {
-    baskets: []
+    baskets: { count: 0, rows: [] },
 }
 
 export const basketSlice = createSlice({

@@ -14,8 +14,8 @@ class BasketController {
 
     async getIdAllBasket(req, res, next) {
         try {
-            const { userId } = req.params
-            const baskets = await basketService.getIdAllBasket(userId)
+            let { userId, typeId, limit, page } = req.query
+            const baskets = await basketService.getIdAllBasket(userId, typeId, limit, page)
             return res.json(baskets)
         } catch (e) {
             next(e)
