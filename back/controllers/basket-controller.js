@@ -31,6 +31,17 @@ class BasketController {
             next(e)
         }
     }
+
+    async deleteAll(req, res, next) {
+        try {
+            const { userId } = req.params
+            console.log(userId, "USerID")
+            const baskets = await basketService.deleteAll(userId)
+            return res.json(baskets)
+        } catch (e) {
+            next(e)
+        }
+    }
 }
 
 module.exports = new BasketController()

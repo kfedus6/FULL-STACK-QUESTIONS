@@ -389,8 +389,28 @@ footer div {
     gap: 10px;
     width: 100%;
 }
-.basket-progress__precent {
+
+.basket-sort__search form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
+}
+
+.basket-sort__search form div:nth-child(1) {
+    width: 95%; 
+}
+
+.basket-sort__search form div:nth-child(2) {
+    width: 95%; 
+}
+
+.basket-progress__precent {
+    width: 60%;
+}
+
+.basket-delete__history, .basket-pagination {
+    margin-top: 15px;
 }
 
 .basket-user {
@@ -405,8 +425,21 @@ footer div {
 
 .baskets-items {
     display: flex;
-    flex-wrap: wrap;
     gap: 15px;
+    width: 100%;
+}
+
+.basket-item__block {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.basket-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     width: 100%;
 }
 

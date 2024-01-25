@@ -6,5 +6,6 @@ const router = new Router()
 router.post('/:userId/:id', basketController.createBasket)
 router.get('/', basketController.getIdAllBasket)
 router.get('/history/:basketId', basketController.getIdAllBasketHistory)
+router.delete('/:userId', basketController.deleteAll)
 
 module.exports = router

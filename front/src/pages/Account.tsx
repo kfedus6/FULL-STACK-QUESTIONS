@@ -1,22 +1,19 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
-import { fetchGetIdBasketHistories, fetchGetIdTypes, fetchgetIdBaskets } from '../store/reducers/ActionCreators'
-import { DownOutlined, SmileOutlined, MehOutlined, FrownOutlined } from '@ant-design/icons';
-import { Dropdown, Space, Progress, Tooltip, Card, Form, Select, Button, AutoComplete, PaginationProps, Pagination } from 'antd';
-
-const { Meta } = Card
-const { Option } = Select
+import { fetchDeleteIdBasketHistories, fetchGetIdBasketHistories, fetchGetIdTypes, fetchgetIdBaskets } from '../store/reducers/ActionCreators'
+import { Button, PaginationProps, Pagination } from 'antd';
+import AccountSortSearch from '../components/AccountSortSearch';
+import AccountProgress from '../components/AccountProgress';
+import AccountBasketsItem from '../components/AccountBasketsItem';
 
 const Account: React.FC = () => {
-    const [form] = Form.useForm()
-
     const [items, setItems] = useState<any>()
     const [goodPercent, setGoodPercent] = useState<any>(0)
     const [normalPercent, setNormalPercent] = useState<any>(0)
     const [badPercent, setBadPercent] = useState<any>(0)
     const [typeId, setTypeId] = useState<number | undefined>(undefined)
     const [page, setPage] = useState<number>(1)
-    const [limit, setLimit] = useState<number>(10)
+    const [limit, setLimit] = useState<number>(12)
     const [value, setValue] = useState('')
     const [sorteredBaskets, setSorteredBaskets] = useState<any>([])
     const [sorteredBasketsForm, setSorteredBasketsForm] = useState<any>()
@@ -35,26 +32,6 @@ const Account: React.FC = () => {
     useEffect(() => {
         dispatch(fetchGetIdTypes(user.id))
     }, [])
-
-    const sendIdBasket = (id: any) => {
-        dispatch(fetchGetIdBasketHistories(id))
-    }
-
-    const onFinish = (values: any) => {
-        setTypeId(values.type)
-    }
-
-    const onSelect = (data: string) => {
-        setValue(data)
-    }
-
-    const onSearch = (value: string) => {
-        setValue(value)
-    }
-
-    const onChange: PaginationProps['onChange'] = (page: any) => {
-        setPage(page)
-    }
 
     useMemo(() => {
         const resultChangeHistories: any = []
@@ -97,79 +74,79 @@ const Account: React.FC = () => {
         setBadPercent(Math.round(resultBadCount / filteredBaskets.length * 100))
     }, [typeId, value, baskets])
 
+    const sendIdBasket = (id: any) => {
+        dispatch(fetchGetIdBasketHistories(id))
+    }
+
+    const onFinish = (values: any) => {
+        setTypeId(values.type)
+    }
+
+    const onSelect = (data: string) => {
+        setValue(data)
+    }
+
+    const onSearch = (value: string) => {
+        setValue(value)
+    }
+
+    const onChange: PaginationProps['onChange'] = (page: any) => {
+        setPage(page)
+    }
+
+    const deleteBasketHistory = () => {
+        dispatch(fetchDeleteIdBasketHistories(user.id))
+    }
+
     return (
         <div className='basket-page'>
             <div className='basket-history'>
+                <div className='basket-user'>
+                    <span>{user.nickName}</span>
+                </div>
                 <div className='basket-history__block'>
-                    <div className='basket-user'>
-                        <span>{user.nickName}</span>
+                    <div className='basket-sort__search'>
+                        <AccountSortSearch
+                            onFinish={onFinish}
+                            types={types}
+                            sorteredBasketsForm={sorteredBasketsForm}
+                            onSelect={onSelect}
+                            onSearch={onSearch}
+                        />
                     </div>
-                    <div className='basket-title'>
-                        <span>History:</span>
-                    </div>
-                    <Form
-                        form={form}
-                        onFinish={onFinish}
-                        autoComplete="off"
-                    >
-                        <Form.Item name='type'>
-                            <Select placeholder="Type" allowClear>
-                                {types.map((item: any, idx: any) => (
-                                    <Option key={idx} value={item.id}>{item.title}</Option>
-                                ))}
-                            </Select>
-                        </Form.Item>
-
-                        <Form.Item>
-                            <AutoComplete
-                                options={sorteredBasketsForm}
-                                onSelect={onSelect}
-                                onSearch={onSearch}
-                                placeholder="Search..."
-                            />
-                        </Form.Item>
-
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit">
-                                Search
-                            </Button>
-                        </Form.Item>
-                    </Form>
                     <div className='baskets-items'>
+                        <div className='basket-item__block'>
+                            <div className='basket-title'>
+                                <span>History:</span>
+                            </div>
+                            <div className='basket-item'>
+                                {sorteredBaskets.map((basket: any, idx: any) => (
+                                    <AccountBasketsItem
+                                        idx={idx}
+                                        basket={basket}
+                                        items={items}
+                                        sendIdBasket={sendIdBasket}
+                                    />
+                                ))}
+                            </div>
+                            <div className='basket-delete__history'>
+                                <Button onClick={deleteBasketHistory} type="text" danger>
+                                    Delete history
+                                </Button>
+                            </div>
+                        </div>
                         <div className='basket-progress__precent'>
-                            <Space wrap>
-                                <Tooltip title="More than 80% of correct answers!">
-                                    <Progress strokeLinecap="butt" strokeColor='green' type="dashboard" percent={goodPercent} />
-                                </Tooltip>
-                                <Tooltip title="More than 50% of correct answers!">
-                                    <Progress strokeLinecap="butt" strokeColor='gold' type="dashboard" percent={normalPercent} />
-                                </Tooltip>
-                                <Tooltip title="Less than 50% of correct answers!">
-                                    <Progress strokeLinecap="butt" strokeColor='red' type="dashboard" percent={badPercent} />
-                                </Tooltip>
-                            </Space>
+                            <AccountProgress
+                                goodPercent={goodPercent}
+                                normalPercent={normalPercent}
+                                badPercent={badPercent}
+                            />
                         </div>
-                        <div className='basket-item'>
-                            {sorteredBaskets.map((basket: any, idx: any) => (
-                                <div key={idx} className='basket-dropdown' onClick={() => sendIdBasket(basket.id)}>
-                                    <Dropdown menu={{ items }} trigger={['click']}>
-                                        <Card
-                                            hoverable
-                                            onClick={(e) => e.preventDefault()} bordered={false}>
-                                            <Meta title={basket.title} />
-                                            <span className='basket-card__precent'>{basket.resultPercent < 50 ? <FrownOutlined /> : basket.resultPercent < 80 ? <MehOutlined /> : <SmileOutlined />} {`${basket.resultPercent}%`}</span>
-                                            <span className='basket-card__down'><DownOutlined /></span>
-                                        </Card>
-                                    </Dropdown>
-                                </div>
-                            ))}
-                        </div>
+                    </div>
+                    <div className='basket-pagination'>
+                        <Pagination onChange={onChange} defaultCurrent={1} total={baskets.count + 2} />
                     </div>
                 </div>
-                <Button type="text" danger>
-                    Delete history
-                </Button>
-                <Pagination onChange={onChange} defaultCurrent={1} total={baskets.count + 2} />
             </div>
         </div>
     )

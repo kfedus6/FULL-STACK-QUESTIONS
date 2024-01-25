@@ -23,7 +23,7 @@ class BasketService {
 
     async getIdAllBasket(userId, typeId, limit, page) {
         if (limit == undefined) {
-            limit = 10
+            limit = 12
         }
 
         if (page == undefined) {
@@ -44,6 +44,22 @@ class BasketService {
     async getIdAllBasketHistory(basketId) {
         const histories = await History.findAll({ where: { basketId: basketId } })
         return { histories }
+    }
+
+    async deleteAll(userId) {
+        await Basket.destroy({ where: { userId: userId } })
+        await History.destroy({ where: { userId: userId } })
+        if (limit == undefined) {
+            limit = 12
+        }
+
+        if (page == undefined) {
+            page = 1
+        }
+
+        let offset = page * limit - limit
+        const baskets = await Basket.findAndCountAll({ limit: Number(limit), offset: Number(offset) })
+        return { baskets }
     }
 }
 

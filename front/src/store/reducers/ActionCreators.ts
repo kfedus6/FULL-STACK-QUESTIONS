@@ -187,3 +187,12 @@ export const fetchGetIdBasketHistories = (basketId: any) => async (dispatch: App
         dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
     }
 }
+
+export const fetchDeleteIdBasketHistories = (userId: any) => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $host.delete(`/basket/${userId}`)
+        dispatch(basketSlice.actions.deleteIdBaskets({ baskets: response.data.baskets }))
+    } catch (error: any) {
+        dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
+    }
+}

@@ -18,6 +18,9 @@ export const basketSlice = createSlice({
         },
         getIdBaskets(state, actions: PayloadAction<BasketState>) {
             state.baskets = actions.payload.baskets
+        },
+        deleteIdBaskets(state, actions: PayloadAction<BasketState>) {
+            state.baskets = actions.payload.baskets
         }
     }
 })
