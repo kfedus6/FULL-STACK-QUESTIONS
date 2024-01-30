@@ -94,7 +94,7 @@ export const fetchGetIdType = (userId: any, id: any) => async (dispatch: AppDisp
 export const fetchPostIdQuestion = (typeId: any, data: any) => async (dispatch: AppDispatch) => {
     try {
         const response = await $host.post(`/question/${typeId}`, data)
-        dispatch(questionSlice.actions.postIdQuestion({ questions: response.data.newQuestion, gameQuestions: [] }))
+        dispatch(questionSlice.actions.getQuestions({ questions: response.data.questions, gameQuestions: [] }))
         dispatch(messageSlice.actions.success({ successMessage: 'You have created a question!', errorMessage: null, warningMessage: null }))
     } catch (error: any) {
         dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
@@ -160,7 +160,7 @@ export const fetchDeleteIdQuestion = (id: any, data: any) => async (dispatch: Ap
 export const fetchPostBasket = (percentCorrectQuestions: any, title: any, id: any, userId: any, resultQuestions: any) => async (dispatch: AppDispatch) => {
     try {
         const response = await $host.post(`/basket/${userId}/${id}`, { percentCorrectQuestions, title, resultQuestions })
-        dispatch(basketSlice.actions.postBasket({ baskets: response.data.basket }))
+        dispatch(basketSlice.actions.postBasket({ baskets: response.data.baskets }))
     } catch (error: any) {
         dispatch(messageSlice.actions.error({ successMessage: null, errorMessage: error.response.data.message, warningMessage: null }))
     }

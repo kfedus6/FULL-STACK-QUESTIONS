@@ -1,18 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { fetchLogin } from '../store/reducers/ActionCreators';
 
 const Login: React.FC = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
+    const { user }: any = useAppSelector(state => state.user)
+
+    useEffect(() => {
+        if (user.email) {
+            navigate('/')
+        }
+    }, [user])
+
     const onFinish = (values: any) => {
         const userObj = values
         dispatch(fetchLogin(userObj))
-        navigate('/')
     }
 
     const onFinishFailed = (errorInfo: any) => {

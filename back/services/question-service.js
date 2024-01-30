@@ -9,7 +9,11 @@ class QuestionService {
             answer: answer,
             typeId: findType.id
         })
-        return { newQuestion }
+        let limit = 8
+        let page = 1
+        let offset = page * limit - limit
+        const questions = await Question.findAndCountAll({ limit: Number(limit), offset: Number(offset) })
+        return { questions }
     }
 
     async findAllQuestion(typeId, limit, page) {

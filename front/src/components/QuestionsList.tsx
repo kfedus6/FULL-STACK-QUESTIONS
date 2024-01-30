@@ -45,7 +45,7 @@ const QuestionsList: React.FC<QuestionsListProps> = ({ onChange, questions, sort
                 ))}
             </div>
             <div>
-                <Pagination onChange={onChange} defaultCurrent={1} total={questions.count + 2} />
+                <Pagination onChange={onChange} defaultCurrent={1} total={questions.count + 5} />
             </div>
         </div>
     )

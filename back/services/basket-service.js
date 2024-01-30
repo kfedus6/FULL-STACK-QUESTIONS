@@ -18,7 +18,12 @@ class BasketService {
                 basketId: basket.id
             })
         }
-        return { basket }
+        let limit = 12
+        let page = 1
+        let offset = page * limit - limit
+        const baskets = await Basket.findAndCountAll({ limit: Number(limit), offset: Number(offset) })
+
+        return { baskets }
     }
 
     async getIdAllBasket(userId, typeId, limit, page) {

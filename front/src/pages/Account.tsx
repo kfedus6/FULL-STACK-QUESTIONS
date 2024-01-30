@@ -24,6 +24,7 @@ const Account: React.FC = () => {
     const { baskets }: any = useAppSelector(state => state.baskets)
     const { histories }: any = useAppSelector(state => state.histories)
     const { types }: any = useAppSelector(state => state.types)
+    console.log(baskets)
 
     useEffect(() => {
         dispatch(fetchgetIdBaskets({ userId: user.id, typeId: typeId, page: page, limit: limit }))

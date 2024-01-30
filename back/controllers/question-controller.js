@@ -5,8 +5,8 @@ class QuestionController {
         try {
             const { typeId } = req.params
             const { question, answer } = req.body
-            const newQuestion = await questionService.createIdQuestion(question, answer, typeId)
-            return res.json(newQuestion)
+            const questions = await questionService.createIdQuestion(question, answer, typeId)
+            return res.json(questions)
         } catch (e) {
             next(e)
         }

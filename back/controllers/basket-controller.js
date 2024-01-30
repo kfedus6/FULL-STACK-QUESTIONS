@@ -5,8 +5,8 @@ class BasketController {
         try {
             const { userId, id } = req.params
             const { percentCorrectQuestions, title, resultQuestions } = req.body
-            const basket = await basketService.createBasket(userId, id, percentCorrectQuestions, title, resultQuestions)
-            return res.json(basket)
+            const baskets = await basketService.createBasket(userId, id, percentCorrectQuestions, title, resultQuestions)
+            return res.json(baskets)
         } catch (e) {
             next(e)
         }
